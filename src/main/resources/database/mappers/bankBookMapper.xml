@@ -6,14 +6,14 @@
 
 <mapper namespace="com.jh.s1.bankbook.BankBookDAO">
 	<!-- list 조회하는건 select 태그 사용 -->
-	<select id="list" resultType="com.jh.s1.bankbook.BankBookDTO">
+	<select id="list" resultType="BankBookDTO">
 		<!-- select로 나온 결과물 하나하나를 DTO에 담아야 하잖아? 그러니까 resultType에 bankbookdto에 담으라고 
 			알려주자 -->
 		<!-- 이 안에 쿼리 태그를 입력하자 -->
 		SELECT * FROM BANKBOOK
 	</select>
 
-	<insert id="add" parameterType="com.jh.s1.bankbook.BankBookDTO">
+	<insert id="add" parameterType="BankBookDTO">
 		INSERT INTO bankbook (booknumber,
 		bookname, bookcontents, bookrate,
 		booksale)
@@ -21,15 +21,14 @@
 		#{bookRate}, #{bookSale})
 	</insert>
 
-	<select id="detail" parameterType="java.lang.Long"
-		resultType="com.jh.s1.bankbook.BankBookDTO">
-		select * from bankbook where booknumber = #{num}
+	<select id="detail" parameterType="BankBookDTO"
+		resultType="BankBookDTO">
+		select * from bankbook where booknumber = #{bookNumber}
 	</select>
-	<!-- -->
 
-	<delete id="delete"
-		parameterType="com.jh.s1.bankbook.BankBookDTO">
-		DELETE BANKBOOK WHERE BOOKNUMBER = #{bookNumber}
+	<delete id="delete" parameterType="BankBookDTO">
+		DELETE BANKBOOK WHERE
+		BOOKNUMBER = #{bookNumber}
 	</delete>
 
 

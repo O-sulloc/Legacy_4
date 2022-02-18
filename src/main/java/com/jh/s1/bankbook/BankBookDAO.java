@@ -30,8 +30,8 @@ public class BankBookDAO {
 	}
 
 	// 상품하나만 볼 수 있는 detail 메서드
-	public BankBookDTO detail(Long num) throws Exception {
-		return sqlSession.selectOne(NAMESPACE + "detail", num);
+	public BankBookDTO detail(BankBookDTO bankBookDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "detail", bankBookDTO);
 	}
 
 	// 상품 삭제하는 delete 메서드
