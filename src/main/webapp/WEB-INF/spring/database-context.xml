@@ -20,6 +20,7 @@
 			 <!-- datasource? db연결을 관리하는 객체가 누구냐? datasource입니다. 
 			 datasource는 객체니까 ref 타입 -->
 		<property name="configLocation" value="classpath:database/config/mybatisConfig.xml"></property>
+
 			<!-- config 위치 알려주려고 -->
 		<property name="mapperLocations" value="classpath:database/mappers/*Mapper.xml"></property>
 	</bean>
