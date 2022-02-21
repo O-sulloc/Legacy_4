@@ -9,7 +9,7 @@
 		<typeAlias type="com.jh.s1.bankbook.BankBookDTO" alias="BankBookDTO" />
 		<typeAlias type="java.lang.Long" alias="Long" />
 		<typeAlias type="com.jh.s1.notice.NoticeDTO" alias="NoticeDTO" />
-
+		<typeAlias type="com.jh.s1.member.MemberDTO" alias="MemberDTO" />
 		
 	</typeAliases>
 </configuration>
