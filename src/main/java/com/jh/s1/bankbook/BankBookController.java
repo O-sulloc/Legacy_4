@@ -16,6 +16,12 @@ public class BankBookController {
 	@Autowired
 	private BankBookService bankBookService;
 
+	@RequestMapping("delete")
+	public String delete(BankBookDTO bankBookDTO) throws Exception {
+		int result = bankBookService.delete(bankBookDTO);
+		return "redirect:./list";
+	}
+
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public ModelAndView list(ModelAndView mv) throws Exception {
 		// modelandview로 받는 방법
@@ -38,9 +44,9 @@ public class BankBookController {
 		// 오버로딩이라 똑같은 이름이어도 ㄱㅊ아
 		// view의 이름때문에 string 주기
 		int result = bankBookService.add(bankBookDTO);
-		
+
 		return "redirect:./list";
-		//redirect:글 다썼으면 list로 돌아가
+		// redirect:글 다썼으면 list로 돌아가
 	}
 
 	// insert form으로 이동

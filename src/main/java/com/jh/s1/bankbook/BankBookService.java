@@ -17,6 +17,10 @@ public class BankBookService {
 	@Autowired
 	private BankBookDAO bankBookDAO;
 
+	public int delete(BankBookDTO bankBookDTO) throws Exception{
+		return bankBookDAO.delete(bankBookDTO);
+	}
+	
 	// add하는 메서드
 	public int add(BankBookDTO bankBookDTO) throws Exception {
 		// controller에서 bankBookDTO보내주면
