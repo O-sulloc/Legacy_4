@@ -13,6 +13,11 @@ public class NoticeDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jh.s1.notice.NoticeDAO.";
 
+	//update
+	public int update(NoticeDTO noticeDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"update", noticeDTO);
+	}
+	
 	public List<NoticeDTO> list() throws Exception {
 		return sqlSession.selectList(NAMESPACE + "list");
 	}

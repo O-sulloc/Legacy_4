@@ -14,6 +14,7 @@
 	<h3>contents: ${dto.contents}</h3>
 	
 	<a href="./list">List</a>
+	<a href="./update?num=${dto.num }">update</a>
 	<a href="./delete?num=${dto.num }">delete</a>
 </body>
 </html>
