@@ -15,7 +15,30 @@ public class BankBookController {
 
 	@Autowired
 	private BankBookService bankBookService;
-	
+
+
+	// db에 update 처리하는 메서드를 만들자
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(BankBookDTO bankBookDTO) throws Exception {
+		int result = bankBookService.update(bankBookDTO);
+
+		return "redirect:./list";
+	}
+
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void update(BankBookDTO bankBookDTO, Model model) throws Exception {
+		// void로 하면 그대로 경로가 됨.
+		// bankbookDTO에 booknumber가 담겨져서 올거임
+		System.out.println(bankBookDTO.getBookNumber());
+		bankBookDTO = bankBookService.detail(bankBookDTO);
+		// 어차피 update도 데이터 하나만 출력하는거니까 detail 재활용 가능
+		// 그리고 그 결과를 dto에 덮어 씌워
+		model.addAttribute("dto", bankBookDTO);
+		// model을 매개변수로 받아서 거기에 bankbookdto 넣기
+		// 그리고 jsp로 간다.
+	}
+
+
 	@RequestMapping("delete")
 	public String delete(BankBookDTO bankBookDTO) throws Exception {
 		int result = bankBookService.delete(bankBookDTO);
