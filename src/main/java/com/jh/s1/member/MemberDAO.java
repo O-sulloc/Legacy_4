@@ -14,15 +14,19 @@ public class MemberDAO {
 
 	private final String NAMESPACE = "com.jh.s1.member.MemberDAO.";
 
-	public MemberDTO mypage(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"mypage", memberDTO);
+	public int update(MemberDTO memberDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "update", memberDTO);
 	}
-	
-	public MemberDTO login(MemberDTO memberDTO) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"login", memberDTO);
-		
+
+	public MemberDTO mypage(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "mypage", memberDTO);
 	}
-	
+
+	public MemberDTO login(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "login", memberDTO);
+
+	}
+
 	public int join(MemberDTO memberDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "join", memberDTO);
 	}

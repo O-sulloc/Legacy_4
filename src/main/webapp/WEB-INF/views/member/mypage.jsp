@@ -16,5 +16,7 @@
 	<h3>phone: ${dto.phone }</h3>
 	<h3>email: ${dto.email }</h3>
 	<!-- model에 dto로 해놓음 -->
+	
+	<a href="./update?id=${dto.id }">update</a>
 </body>
 </html>

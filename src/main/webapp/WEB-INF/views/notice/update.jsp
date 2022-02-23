@@ -11,11 +11,11 @@
 	<h1>notice update page</h1>
 	
 	<form action="./update" method="post">
-	<input readonly="readonly" type="hidden" name="num" value="${dto.num }">
+		<input readonly="readonly" type="hidden" name="num" value="${dto.num }">
 		title<input type="text" name="title" value="${dto.title }">
 		contents<input type="text" name="contents" value="${dto.contents }">
 	
-	<input type="submit" value="update">
+		<input type="submit" value="update">
 	
 	</form>
 </body>

@@ -19,14 +19,28 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	//update post
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(MemberDTO memberDTO) throws Exception{
+		int result = memberService.update(memberDTO);
+		return "redirect:./mypage";
+	}
+	
+	// mypage update
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void update(MemberDTO memberDTO, Model model) throws Exception {
+		memberDTO = memberService.mypage(memberDTO);
+		model.addAttribute("dto", memberDTO);
+	}
+
 	// mypage
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public ModelAndView mypage(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		// 형변환
-		// 밑에 dto 타입으로 넣어놨는데 꺼낼 땐 object 타입이라 dto로 형변환 
-		memberDTO=memberService.mypage(memberDTO);
+		// 밑에 dto 타입으로 넣어놨는데 꺼낼 땐 object 타입이라 dto로 형변환
+		memberDTO = memberService.mypage(memberDTO);
 		mv.setViewName("member/mypage");
 		mv.addObject("dto", memberDTO);
 		return mv;
