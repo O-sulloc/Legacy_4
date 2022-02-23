@@ -13,6 +13,11 @@ public class BankBookDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jh.s1.bankbook.BankBookDAO.";
 
+	//update
+	public int update(BankBookDTO bankBookDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"update", bankBookDTO);
+	}
+	
 	// list조회하는 메서드
 	public List<BankBookDTO> list() throws Exception {
 		// list<>제네릭안에 mapper에 resultType으로 선언한 걸 입력

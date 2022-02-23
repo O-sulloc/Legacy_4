@@ -6,6 +6,13 @@
 
 <mapper namespace="com.jh.s1.bankbook.BankBookDAO">
 	<!-- list 조회하는건 select 태그 사용 -->
+	
+	<update id="update" parameterType="BankBookDTO">
+		UPDATE BANKBOOK SET bookName= #{bookName}, 
+		bookContents = #{bookContents}, bookRate=#{bookRate}, bookSale=#{bookSale}
+		WHERE bookNumber=#{bookNumber}
+	</update>
+	
 	<select id="list" resultType="BankBookDTO">
 		<!-- select로 나온 결과물 하나하나를 DTO에 담아야 하잖아? 그러니까 resultType에 bankbookdto에 담으라고 
 			알려주자 -->
