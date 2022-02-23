@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:import url="../template/header_css.jsp"></c:import>
 </head>
 <body>
+<c:import url="../template/header.jsp"></c:import>
 	<h1>Notice list page</h1>
 
 	<table>

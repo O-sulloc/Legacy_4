@@ -8,16 +8,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="./template/header_css.jsp"></c:import>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+</style>
 </head>
 <body>
 	<c:import url="./template/header.jsp"></c:import>
 
-	<h1>Index Page</h1>
-
-	<h3>${member.name }님
-		환영합니다. <span class="material-icons"> login </span>
+	<h3>${member.name }님환영합니다.
+		<span class="material-icons-outlined"> favorite </span>
 	</h3>
 	<!-- sessionScope.member.name 인데 
 	앞에 sessionscope는 생략 가능.
@@ -30,7 +27,7 @@
 		</c:if>
 
 		<c:if test="${empty member }">
-			<a href="./member/login">login</a>
+			<a class="material-icons-outlined" href="./member/login">login</a>
 			<a href="./member/join">join</a>
 		</c:if>
 
