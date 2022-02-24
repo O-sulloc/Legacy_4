@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jh.s1.MyJunitTest;
+import com.jh.s1.util.Pager;
 
 public class BankBookDAOTest extends MyJunitTest {
 
@@ -15,24 +16,43 @@ public class BankBookDAOTest extends MyJunitTest {
 	private BankBookDAO bankBookDAO;
 
 	// list
-	// @Test
+	@Test
 	public void listTest() throws Exception {
-		List<BankBookDTO> ar = bankBookDAO.list();
-		assertNotEquals(0, ar.size());
+		Pager pager = new Pager();
+		pager.setPerPage(5L);
+		pager.makeRow();
+		// pager.makeRow();이걸 해야 startrow랑 lastrow 계산하겠지
+
+		List<BankBookDTO> ar = bankBookDAO.list(pager);
+		System.out.println(ar.get(0).getBookNumber());
+		System.out.println(ar.get(4).getBookNumber());
+		assertEquals(5, ar.size());
 		// 아직 DB에 data가 없으니까 0개여야 맞음
+
 	}
 
 	// add
-	@Test
+	// @Test
 	public void addTest() throws Exception {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 200; i++) {
 			BankBookDTO bankBookDTO = new BankBookDTO();
 			bankBookDTO.setBookName("bookname" + i);
 			bankBookDTO.setBookContents("bookcontents" + i);
-			bankBookDTO.setBookRate(1.12 + i);
+
+			double rate = Math.random();
+			rate = rate * 1000;
+			int r = (int) rate;
+			rate = r / 100.0;
+
+			bankBookDTO.setBookRate(rate);
 			bankBookDTO.setBookSale(1);
 
 			int result = bankBookDAO.add(bankBookDTO);
+
+			if (i % 10 == 0) {
+				Thread.sleep(1000);
+			}
+
 		}
 		System.out.println("insert finish");
 		// assertEquals(1, result);
@@ -42,7 +62,7 @@ public class BankBookDAOTest extends MyJunitTest {
 	public void detailTest() throws Exception {
 		BankBookDTO bankBookDTO = new BankBookDTO();
 		bankBookDTO.setBookNumber(2L);
-		//bankBookDTO = bankBookDAO.detail(2);
+		// bankBookDTO = bankBookDAO.detail(2);
 
 		assertNotNull(bankBookDTO);
 	}

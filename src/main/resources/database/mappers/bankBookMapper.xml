@@ -13,11 +13,19 @@
 		WHERE bookNumber=#{bookNumber}
 	</update>
 	
-	<select id="list" resultType="BankBookDTO">
+	<select id="total" resultType="Long">
+		select count(booknumber) from bankbook
+		
+	</select>
+	
+	<select id="list" parameterType="Pager" resultType="BankBookDTO">
 		<!-- select로 나온 결과물 하나하나를 DTO에 담아야 하잖아? 그러니까 resultType에 bankbookdto에 담으라고 
 			알려주자 -->
 		<!-- 이 안에 쿼리 태그를 입력하자 -->
-		SELECT * FROM BANKBOOK
+		select * from 
+		(select rownum R, B.* from 
+		(select * from bankbook where booknumber > 0 order by booknumber desc) B )
+		where R between #{startRow} and #{lastRow}
 	</select>
 
 	<insert id="add" parameterType="BankBookDTO">
