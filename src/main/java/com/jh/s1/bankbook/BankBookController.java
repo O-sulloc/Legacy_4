@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jh.s1.util.Pager;
+
 @Controller
 @RequestMapping(value = "/bankbook/*")
 public class BankBookController {
@@ -46,11 +48,13 @@ public class BankBookController {
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public ModelAndView list(ModelAndView mv) throws Exception {
+	public ModelAndView list(ModelAndView mv, Pager pager) throws Exception {
 		// modelandview로 받는 방법
 		// 1.매개변수 선언 2. 메서드 내에 객체 생성
-		List<BankBookDTO> ar = bankBookService.list();
+		List<BankBookDTO> ar = bankBookService.list(pager);
 		mv.addObject("list", ar);
+		mv.addObject("pager", pager);
+		//pager라고 담아놨으니까 list에서도 pager로 불러오면됨
 		mv.setViewName("bankbook/list");
 		return mv;
 	}

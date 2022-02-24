@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jh.s1.util.Pager;
+
 @Repository
 public class BankBookDAO {
 
@@ -13,15 +15,20 @@ public class BankBookDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jh.s1.bankbook.BankBookDAO.";
 
-	//update
-	public int update(BankBookDTO bankBookDTO) throws Exception{
-		return sqlSession.update(NAMESPACE+"update", bankBookDTO);
+	// total count
+	public Long total() throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"total");
 	}
-	
+
+	// update
+	public int update(BankBookDTO bankBookDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "update", bankBookDTO);
+	}
+
 	// list조회하는 메서드
-	public List<BankBookDTO> list() throws Exception {
+	public List<BankBookDTO> list(Pager pager) throws Exception {
 		// list<>제네릭안에 mapper에 resultType으로 선언한 걸 입력
-		return sqlSession.selectList(NAMESPACE + "list");
+		return sqlSession.selectList(NAMESPACE + "list", pager);
 		// ()괄호 안에 namespace
 		// +플러스는 mapper에 작성한 id 이름
 	}

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jh.s1.util.Pager;
+
 @Service
 public class BankBookService {
 	// controller -> service -> dao
@@ -17,14 +19,14 @@ public class BankBookService {
 	@Autowired
 	private BankBookDAO bankBookDAO;
 
-	public int update(BankBookDTO bankBookDTO) throws Exception{
+	public int update(BankBookDTO bankBookDTO) throws Exception {
 		return bankBookDAO.update(bankBookDTO);
 	}
-	
-	public int delete(BankBookDTO bankBookDTO) throws Exception{
+
+	public int delete(BankBookDTO bankBookDTO) throws Exception {
 		return bankBookDAO.delete(bankBookDTO);
 	}
-	
+
 	// add하는 메서드
 	public int add(BankBookDTO bankBookDTO) throws Exception {
 		// controller에서 bankBookDTO보내주면
@@ -37,10 +39,14 @@ public class BankBookService {
 
 	}
 
-	public List<BankBookDTO> list() throws Exception {
+	public List<BankBookDTO> list(Pager pager) throws Exception {
 		// 이 메서드는 DAO메서드 호출 전에 전처리 작업을 하고
+		pager.makeRow();
+		
+		Long totalCount = bankBookDAO.total();
+		pager.makeNum(totalCount);
 		// 호출 후에 후처리 작업이 필요하면 호출하면 됨.
-		List<BankBookDTO> ar = bankBookDAO.list();
+		List<BankBookDTO> ar = bankBookDAO.list(pager);
 		return ar;
 	}
 
