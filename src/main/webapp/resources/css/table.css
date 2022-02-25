@@ -2,3 +2,20 @@
 /* table.css */
 
 /* notice, bankbook 테이블에 적용할 css 2개를 만들어 */
+
+.table-basic{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table-basic td, .table-basic th{
+	border: 1px solid #494949;
+	border-spacing: 0;
+	height: 40px;
+}
+
+.table-basic tr:first-child{
+	background-color: #757575;
+	height: 60px;
+	color: #ffffff;
+}

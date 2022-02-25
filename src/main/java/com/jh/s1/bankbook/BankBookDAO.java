@@ -16,8 +16,9 @@ public class BankBookDAO {
 	private final String NAMESPACE = "com.jh.s1.bankbook.BankBookDAO.";
 
 	// total count
-	public Long total() throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"total");
+	public Long total(Pager pager) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"total", pager);
+		//2월 25일. mapper에 #{search} 받아오기로 했으니까. 여기도 pager
 	}
 
 	// update

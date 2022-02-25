@@ -11,6 +11,11 @@ public class Pager {
 	private Long lastRow;
 	// lastRow: 끝번호
 
+	// search 검색에서 사용될 변수들 선언
+	private String search;
+	private String kind;
+	// 여기까지
+
 	// jsp에서 사용할 변수들
 	private Long startNum;
 	private Long lastNum;
@@ -29,7 +34,6 @@ public class Pager {
 
 	public void makeNum(Long totalCount) {
 		// 1. 전체 row의 개수 구하기
-		
 
 		// 2. 필요한 전체 페이지의 수 구하기
 		// getter이용하면 더 안전(음수도 거를 수 있음)
@@ -76,8 +80,8 @@ public class Pager {
 		}
 
 		// 8. 현재 블럭이 마지막 블럭번호와 같다면
-		if(curBlock == totalBlock) {
-			this.lastNum=totalPage;
+		if (curBlock == totalBlock) {
+			this.lastNum = totalPage;
 		}
 
 	}
@@ -157,6 +161,32 @@ public class Pager {
 
 	public void setNext(boolean next) {
 		this.next = next;
+	}
+
+	public String getSearch() {
+		// 검색어가 없으면 기본값 null이 들어감
+		// 위에 getpage 메서드 참조
+		if (this.search == null) {
+			this.search = "";
+			// if search가 null이면 빈문자열""을 넣어줘
+		}
+
+		// this.search = "%" + this.search + "%";
+		// 그리고 this.search 앞뒤로 % 붙여줘
+
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
 	}
 
 }

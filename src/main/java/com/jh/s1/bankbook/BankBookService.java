@@ -43,7 +43,7 @@ public class BankBookService {
 		// 이 메서드는 DAO메서드 호출 전에 전처리 작업을 하고
 		pager.makeRow();
 		
-		Long totalCount = bankBookDAO.total();
+		Long totalCount = bankBookDAO.total(pager);
 		pager.makeNum(totalCount);
 		// 호출 후에 후처리 작업이 필요하면 호출하면 됨.
 		List<BankBookDTO> ar = bankBookDAO.list(pager);

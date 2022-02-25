@@ -13,9 +13,20 @@
 		WHERE bookNumber=#{bookNumber}
 	</update>
 	
-	<select id="total" resultType="Long">
+	<select id="total" resultType="Long" parameterType="Pager">
 		select count(booknumber) from bankbook
-		
+		where
+			booknumber > 0 
+			and  
+				<choose>
+					<when test="kind=='col1'">
+						bookname
+					</when>
+					<otherwise>
+						bookcontents
+					</otherwise>
+				</choose>
+			like '%' || #{search} || '%' 
 	</select>
 	
 	<select id="list" parameterType="Pager" resultType="BankBookDTO">
@@ -23,9 +34,22 @@
 			알려주자 -->
 		<!-- 이 안에 쿼리 태그를 입력하자 -->
 		select * from 
-		(select rownum R, B.* from 
-		(select * from bankbook where booknumber > 0 order by booknumber desc) B )
-		where R between #{startRow} and #{lastRow}
+			(select rownum R, B.* from 
+				(select * from bankbook where 
+					booknumber > 0 
+					and  
+					
+					<choose>
+						<when test="kind=='col1'">
+							bookname
+						</when>
+						<otherwise>
+							bookcontents
+						</otherwise>
+					</choose>
+					like '%' || #{search} || '%' 
+					order by booknumber desc) B )
+					where R between #{startRow} and #{lastRow}
 	</select>
 
 	<insert id="add" parameterType="BankBookDTO">

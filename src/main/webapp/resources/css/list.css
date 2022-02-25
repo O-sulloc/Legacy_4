@@ -1,0 +1,13 @@
+.table-container{
+    width: 70%;
+
+    margin: 0 auto;
+}
+
+.title {
+    margin-top: 50px;
+}
+
+.table-container > .table-basic {
+    margin-top: 50px;
+}
