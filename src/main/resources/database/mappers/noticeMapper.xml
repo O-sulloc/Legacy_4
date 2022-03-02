@@ -10,8 +10,44 @@
 		where num=#{num}
 	</update>
 
-	<select id="list" resultType="NoticeDTO">
-		SELECT * FROM notice
+	<select id="total" resultType="Long" parameterType="Pager">
+		select count(num) from notice
+		where 
+			NUM > 0 
+			and  
+			
+			<choose>
+				<when test="kind=='col1'">
+					title
+				</when>
+				<otherwise>
+					contents
+				</otherwise>
+			</choose>
+		like '%' || #{search} || '%'
+	</select>
+
+	<select id="list" parameterType="Pager" resultType="NoticeDTO">
+		select * from 
+			(select ROWNUM R, N.* from 
+				(select * from notice 
+					where NUM > 0 
+					and  
+					
+					<choose>
+						<when test="kind=='col1'">
+							title
+						</when>
+						<otherwise>
+							contents
+						</otherwise>
+					</choose>
+					
+					like '%' || #{search} || '%'
+					order by NUM DESC
+				) N 
+			)
+		where R between #{startRow} and #{lastRow}
 	</select>
 
 	<insert id="add" parameterType="NoticeDTO">

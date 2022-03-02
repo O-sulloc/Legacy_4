@@ -52,8 +52,8 @@ public class Pager {
 		}
 
 		// 5. 특정 page가 몇 번 째 블럭에 해당하는지 계산
-		// 1번 블럭에는 1~10번까지 있고
-		// 2번 블럭에는 11~20번까지 있고
+		// 1번 블럭에는 1~10번까지 page 있고
+		// 2번 블럭에는 11~20번까지 page 있고
 
 		Long curBlock = this.getPage() / perBlock;
 		if (this.getPage() % perBlock != 0) {
@@ -173,6 +173,7 @@ public class Pager {
 
 		// this.search = "%" + this.search + "%";
 		// 그리고 this.search 앞뒤로 % 붙여줘
+		// 근데 흉물스러우니까 쓰지말고 걍 연결연산자로 하자
 
 		return search;
 	}
