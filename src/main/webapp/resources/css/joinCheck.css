@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.rule-container {
+	width: 60%;
+	margin: 0 auto;
+}
+
+.rule {
+	margin-top: 50px;
+}
+
+.rule div{
+	height: 150px;
+	background-color: gray;
+}
+
+fieldset{
+	border:0;
+}

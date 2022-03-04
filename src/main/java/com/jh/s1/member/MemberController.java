@@ -19,13 +19,13 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	//update post
+	// update post
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(MemberDTO memberDTO) throws Exception{
+	public String update(MemberDTO memberDTO) throws Exception {
 		int result = memberService.update(memberDTO);
 		return "redirect:./mypage";
 	}
-	
+
 	// mypage update
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public void update(MemberDTO memberDTO, Model model) throws Exception {
@@ -84,15 +84,28 @@ public class MemberController {
 		memberDTO = memberService.login(memberDTO);
 
 		// 로그인 실패. 다시 login폼으로 가삼.
-		String path = "redirect:./login";
+//		String path = "redirect:./login";
+//
+//		// 로그인 성공하면 = dto가 null이 아니면
+//		if (memberDTO != null) {
+//			session.setAttribute("member", memberDTO);
+//
+//			path = "redirect:../";
+//		}
 
-		// 로그인 성공하면 = dto가 null이 아니면
+		String message = "Login Failed";
+		String p = "./login";
+		//로그인 실패하면 ./login 으로 가라
+
 		if (memberDTO != null) {
 			session.setAttribute("member", memberDTO);
-
-			path = "redirect:../";
+			message = "Login success";
+			p="../";
 		}
-
+		model.addAttribute("message", message);
+		model.addAttribute("path", p);
+		//모델에 담아야 jsp로 보내줄 수 있음. 
+		String path = "common/result";
 		return path;
 	}
 
@@ -112,7 +125,9 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "join", method = RequestMethod.GET)
-	public void join() throws Exception {
+	public void join() throws Exception {}
 
-	}
+	@RequestMapping(value = "joinCheck", method=RequestMethod.GET)
+	public void joinCheck() throws Exception{}
+
 }

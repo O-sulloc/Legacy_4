@@ -60,9 +60,24 @@ public class BankBookController {
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public void detail(BankBookDTO bankBookDTO, Model model) throws Exception {
+	public String detail(BankBookDTO bankBookDTO, Model model) throws Exception {		
+		//실패하면 밑에 이 bbdto에 null값이 들어오게 됨.
 		bankBookDTO = bankBookService.detail(bankBookDTO);
-		model.addAttribute("dto", bankBookDTO);
+		// 상품 조회 성공시 그대로 출력
+		// 실패시 alert창을 띄운후 list로 이동시키고 싶음.
+		// common/result.jsp 활용해서 실습해봐
+		
+		String view="common/result";
+		
+		if(bankBookDTO != null) {
+			view="bankbook/detail";
+			model.addAttribute("dto", bankBookDTO);
+		}else {
+			model.addAttribute("message", "없는 상품 번호입니다.");
+			model.addAttribute("path", "./list");
+		}
+		
+		return view;
 	}
 
 	// db에 insert
