@@ -4,15 +4,29 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jh.s1.board.notice.NoticeDAO">
+<mapper namespace="com.jh.s1.board.qna.QnaDAO">
 	
-	<update id="update" parameterType="NoticeDTO">
-		update notice set title=#{title}, contents=#{contents}
+	<insert id="add" parameterType="QnaDTO">
+		INSERT INTO qna (NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT, ref, step, depth)
+		VALUES (qna_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, qna_seq.currval, 0, 0)
+	</insert>
+
+	<select id="detail" resultType="QnaDTO"
+		parameterType="QnaDTO">
+		select * from qna where num=#{num}
+	</select>
+
+	<delete id="delete" parameterType="QnaDTO">
+		delete from qna where num = #{num}
+	</delete>
+	
+	<update id="update" parameterType="QnaDTO">
+		update qna set title=#{title}, contents=#{contents}
 		where num=#{num}
 	</update>
 
 	<select id="total" resultType="Long" parameterType="Pager">
-		select count(num) from notice
+		select count(num) from qna
 		where 
 			NUM > 0 
 			and  
@@ -31,10 +45,10 @@
 		like '%' || #{search} || '%'
 	</select>
 
-	<select id="list" parameterType="Pager" resultType="NoticeDTO">
+	<select id="list" parameterType="Pager" resultType="QnaDTO">
 		select * from 
-			(select ROWNUM R, N.* from 
-				(select * from notice 
+			(select ROWNUM R, Q.* from 
+				(select * from qna 
 					where NUM > 0 
 					and  
 					
@@ -51,24 +65,9 @@
 					</choose>
 					like '%' || #{search} || '%'
 					order by NUM DESC
-				) N 
+				) Q 
 			)
 		where R between #{startRow} and #{lastRow}
 	</select>
 
-	<insert id="add" parameterType="NoticeDTO">
-		INSERT INTO NOTICE (NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT)
-		VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE,
-		#{hit})
-	</insert>
-
-	<select id="detail" resultType="NoticeDTO"
-		parameterType="NoticeDTO">
-		select * from notice where num=#{num}
-	</select>
-
-	<delete id="delete" parameterType="NoticeDTO">
-		delete from notice where num = #{num}
-	</delete>
-	
 </mapper>

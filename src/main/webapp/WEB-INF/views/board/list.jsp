@@ -14,7 +14,7 @@
 <c:import url="../template/header.jsp"></c:import>
 
 	<div class="table-container">
-		<h1 class="title">Notice list page</h1>
+		<h1 class="title">${board} list page</h1>
 
 		<!-- 검색창-->
 		<div>
