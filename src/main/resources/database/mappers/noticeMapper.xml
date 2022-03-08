@@ -4,7 +4,8 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.jh.s1.notice.NoticeDAO">
+<mapper namespace="com.jh.s1.board.notice.NoticeDAO">
+	
 	<update id="update" parameterType="NoticeDTO">
 		update notice set title=#{title}, contents=#{contents}
 		where num=#{num}
@@ -20,8 +21,11 @@
 				<when test="kind=='col1'">
 					title
 				</when>
-				<otherwise>
+				<when test="kind=='col2'">
 					contents
+				</when>
+				<otherwise>
+					writer
 				</otherwise>
 			</choose>
 		like '%' || #{search} || '%'
@@ -38,11 +42,13 @@
 						<when test="kind=='col1'">
 							title
 						</when>
-						<otherwise>
+						<when test="kind=='col2'">
 							contents
+						</when>
+						<otherwise>
+							writer
 						</otherwise>
 					</choose>
-					
 					like '%' || #{search} || '%'
 					order by NUM DESC
 				) N 
@@ -64,4 +70,5 @@
 	<delete id="delete" parameterType="NoticeDTO">
 		delete from notice where num = #{num}
 	</delete>
+	
 </mapper>

@@ -1,14 +1,16 @@
-package com.jh.s1.notice;
+package com.jh.s1.board.notice;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jh.s1.board.BoardDTO;
 import com.jh.s1.util.Pager;
 
 @Controller
@@ -18,26 +20,34 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
+	@ModelAttribute("board")
+	public String board() {
+		return "notice";
+	}
+
 	// update post
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(NoticeDTO noticeDTO) throws Exception {
+	public ModelAndView update(NoticeDTO noticeDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
 		int result = noticeService.update(noticeDTO);
-
-		return "redirect:./list";
+		mv.setViewName("redirect:./list");
+		return mv;
 	}
 
 	// update get
 	@RequestMapping(value = "update", method = RequestMethod.GET)
-	public void update(NoticeDTO noticeDTO, Model model) throws Exception {
-		noticeDTO = noticeService.detail(noticeDTO);
-		model.addAttribute("dto", noticeDTO);
+	public String update(NoticeDTO noticeDTO, Model model) throws Exception {
+		BoardDTO boardDTO = noticeService.detail(noticeDTO);
+		model.addAttribute("dto", boardDTO);
+		return "board/update";
 	}
 
-	@RequestMapping("delete")
-	public String delete(NoticeDTO noticeDTO) throws Exception {
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public ModelAndView delete(NoticeDTO noticeDTO) throws Exception {
 		int result = noticeService.delete(noticeDTO);
-
-		return "redirect:./list";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:./list");
+		return mv;
 	}
 
 	@RequestMapping(value = "add", method = RequestMethod.POST)
@@ -52,17 +62,19 @@ public class NoticeController {
 	public ModelAndView add() throws Exception {
 		ModelAndView mv = new ModelAndView();
 
-		mv.setViewName("notice/add");
+		mv.setViewName("board/add");
 		return mv;
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public ModelAndView detail(NoticeDTO noticeDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		noticeDTO = noticeService.detail(noticeDTO);
+		BoardDTO boardDTO = noticeService.detail(noticeDTO);
+		// 형변환(noticedto로 받아서 boarddto에 담는 것)
+		// 자식(notice)에서 만들어지고 부모(board)에 담는
 
-		mv.addObject("dto", noticeDTO);
-		mv.setViewName("notice/detail");
+		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/detail");
 
 		return mv;
 	}
@@ -70,11 +82,11 @@ public class NoticeController {
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public ModelAndView list(Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		List<NoticeDTO> ar = noticeService.list(pager);
+		List<BoardDTO> ar = noticeService.list(pager);
 
 		mv.addObject("list", ar);
 		mv.addObject("pager", pager);
-		mv.setViewName("notice/list");
+		mv.setViewName("board/list");
 		return mv;
 	}
 
