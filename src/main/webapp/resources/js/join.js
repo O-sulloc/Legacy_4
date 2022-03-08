@@ -25,6 +25,8 @@ let emailCheck=false;
 pw.addEventListener("change", function(){
     pwCheck=false;
     pw2.value='';
+    pwResult2.innerHTML='';
+    pw2.focus();
 });
 
 email.addEventListener('blur', function(){
@@ -52,6 +54,8 @@ name.addEventListener('blur', function(){
 })
 
 btn.addEventListener("click", function(){
+    
+    
     if(idCheck && pwCheck&&nameCheck&&phoneCheck&&emailCheck){
         frm.submit();
         //강제 실행

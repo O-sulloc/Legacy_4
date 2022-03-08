@@ -3,6 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="maxUploadSize" value="10485760"></property>
+		<!-- upload할 전체 파일의 총 크기를 제한하는 property. 단위는 byte이다. -->
+		<property name="maxUploadSizePerFile" value="5242880"></property>
+		<!-- upload할 파일 당 크기 제한 -->
+	</bean>
 		
 </beans>

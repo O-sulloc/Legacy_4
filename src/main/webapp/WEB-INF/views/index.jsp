@@ -12,7 +12,10 @@
 </head>
 <body>
 	<c:import url="./template/header.jsp"></c:import>
-
+	<div>
+		<img alt="" src="./resources/images/img2.gif">
+	</div>
+	
 	<h1>Index Page</h1>
 	<h3>${member.name }님환영합니다.</h3>
 	<!-- sessionScope.member.name 인데 
