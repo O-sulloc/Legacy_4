@@ -12,13 +12,53 @@ const pw2Result = document.getElementById('pw2Result');
 const frm = document.getElementById("frm");
 const btn = document.getElementById("btn");
 
-let idCheck=false;
+const name = document.getElementById("name");
+const phone = document.getElementById("phone");
+const email = document.getElementById("email");
+
+let idCheck=false; //check ok : true, check X:false
 let pwCheck=false;
+let nameCheck=false;
+let phoneCheck=false;
+let emailCheck=false;
+
+pw.addEventListener("change", function(){
+    pwCheck=false;
+    pw2.value='';
+});
+
+email.addEventListener('blur', function(){
+    if(email.value==''){
+        emailCheck=false;
+    }else{
+        emailCheck=true;
+    }
+})
+
+phone.addEventListener('blur', function(){
+    if(phone.value==''){
+        phoneCheck=false;
+    }else{
+        phoneCheck=true;
+    }
+})
+
+name.addEventListener('blur', function(){
+    if(name.value==''){
+        nameCheck=false;
+    }else{
+        nameCheck=true;
+    }
+})
 
 btn.addEventListener("click", function(){
-    frm.submit();
-    //강제 실행
-})
+    if(idCheck && pwCheck&&nameCheck&&phoneCheck&&emailCheck){
+        frm.submit();
+        //강제 실행
+    }else{
+        alert("필수요건을 확인하세요.");
+    }
+});
 
 pw2.addEventListener("blur", function(){
     let v1 = pw.value;

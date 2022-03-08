@@ -31,17 +31,17 @@
 
 			<fieldset>
 				<legend>Name</legend>
-				<input type="text" name="name">
+				<input type="text" name="name" id="name">
 			</fieldset>
 
 			<fieldset>
 				<legend>phone</legend>
-				<input type="text" name="phone">
+				<input type="text" name="phone" id="phone">
 			</fieldset>
 
 			<fieldset>
 				<legend>Email</legend>
-				<input type="text" name="email">
+				<input type="text" name="email" id="email">
 			</fieldset>
 
 			<fieldset>
