@@ -27,6 +27,23 @@ public class QnaController {
 		// model에 board라는 속성명으로 qna를 담아줘
 	}
 
+	@RequestMapping(value = "reply", method = RequestMethod.POST)
+	public ModelAndView reply(QnaDTO qnaDTO) throws Exception {
+		// 오버로딩 위해 매개변수르 다르게 선언
+		ModelAndView mv = new ModelAndView();
+		int result = qnaService.reply(qnaDTO);
+		mv.setViewName("redirect:./list");
+		
+		return mv;
+	}
+
+	@RequestMapping(value = "reply", method = RequestMethod.GET)
+	public ModelAndView reply(QnaDTO qnaDTO, ModelAndView mv) throws Exception {
+		mv.addObject("dto", qnaDTO);
+		mv.setViewName("board/reply");
+		return mv;
+	}
+
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(QnaDTO qnaDTO) throws Exception {
 		int result = qnaService.update(qnaDTO);

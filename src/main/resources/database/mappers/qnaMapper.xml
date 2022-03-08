@@ -6,6 +6,16 @@
 
 <mapper namespace="com.jh.s1.board.qna.QnaDAO">
 	
+	<insert id="reply" parameterType="QnaDTO">
+		INSERT INTO qna (NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT, ref, step, depth)
+		VALUES (qna_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, #{ref}, #{step}, #{depth})
+	</insert>
+	
+	<update id="stepUpdate" parameterType="QnaDTO">
+		update qna set step=step+1
+		where ref=#{ref} and step>#{step}
+	</update>
+	
 	<insert id="add" parameterType="QnaDTO">
 		INSERT INTO qna (NUM, TITLE, CONTENTS, WRITER, REGDATE, HIT, ref, step, depth)
 		VALUES (qna_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, SYSDATE, 0, qna_seq.currval, 0, 0)
@@ -64,7 +74,7 @@
 						</otherwise>
 					</choose>
 					like '%' || #{search} || '%'
-					order by NUM DESC
+					order by ref desc, step asc
 				) Q 
 			)
 		where R between #{startRow} and #{lastRow}

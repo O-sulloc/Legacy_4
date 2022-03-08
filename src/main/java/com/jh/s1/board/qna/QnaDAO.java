@@ -12,49 +12,58 @@ import com.jh.s1.util.Pager;
 
 @Repository
 public class QnaDAO implements BoardDAO {
-	//board interface에 다 선언해놨기때문에
-	//implements로 가져오면 됨
-	//그리고 source -> override/implements method 클릭
-	
+	// board interface에 다 선언해놨기때문에
+	// implements로 가져오면 됨
+	// 그리고 source -> override/implements method 클릭
+
 	@Autowired
 	private SqlSession sqlSession;
+
+	private final String NAMESPACE = "com.jh.s1.board.qna.QnaDAO.";
 	
-	private final String NAMESPACE="com.jh.s1.board.qna.QnaDAO.";
+	public int reply(QnaDTO qnaDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"reply", qnaDTO);
+	}
 	
+	public int stepUpdate(QnaDTO qnaDTO) throws Exception {
+		// step,depth 이런거 필요하니까 매개변수 qnadto로 (board는 안가지고있음)
+		return sqlSession.update(NAMESPACE + "stepUpdate", qnaDTO);
+	}
+
 	@Override
 	public BoardDTO detail(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+"detail", boardDTO);
+		return sqlSession.selectOne(NAMESPACE + "detail", boardDTO);
 	}
 
 	@Override
 	public List<BoardDTO> list(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(NAMESPACE+"list", pager);
+		return sqlSession.selectList(NAMESPACE + "list", pager);
 	}
 
 	@Override
 	public int add(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.insert(NAMESPACE+"add", boardDTO);
+		return sqlSession.insert(NAMESPACE + "add", boardDTO);
 	}
 
 	@Override
 	public int update(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.update(NAMESPACE+"update", boardDTO);
+		return sqlSession.update(NAMESPACE + "update", boardDTO);
 	}
 
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.delete(NAMESPACE+"delete", boardDTO);
+		return sqlSession.delete(NAMESPACE + "delete", boardDTO);
 	}
 
 	@Override
 	public Long total(Pager pager) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(NAMESPACE+"total", pager);
+		return sqlSession.selectOne(NAMESPACE + "total", pager);
 	}
 
 }
