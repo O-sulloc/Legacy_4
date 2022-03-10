@@ -3,24 +3,50 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    <mapper namespace="com.jh.s1.member.MemberDAO">
-    	<update id="update" parameterType="MemberDTO">
-    		update member set name=#{name}, phone=#{phone}, email=#{email}
-			where id=#{id}
-    	</update>
-    	
-    	<select id="mypage" parameterType="MemberDTO" resultType="MemberDTO">
-    		SELECT ID, NAME, PHONE, EMAIL FROM MEMBER where ID = #{id}
-    	</select>
-    	
-    	<select id="login" parameterType="MemberDTO" resultType="MemberDTO">
-    		select id, name from member where id = #{id} and pw = #{pw}
-    	</select>   	
-    
-    	<insert id="join" parameterType="MemberDTO">
-    		INSERT INTO MEMBER(ID, PW, NAME, PHONE, EMAIL)
-			VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email})
-    	</insert>
-    
-    </mapper>
+
+<mapper namespace="com.jh.s1.member.MemberDAO">
+	<update id="update" parameterType="MemberDTO">
+		update member set name=#{name}, phone=#{phone}, email=#{email}
+		where id=#{id}
+	</update>
+
+	<insert id="addFile" parameterType="MemberFileDTO">
+		INSERT INTO MEMBERFILE (FILENUM, ID, FILENAME, ORINAME)
+		VALUES (FILE_SEQ.NEXTVAL, #{id}, #{fileName}, #{oriName})
+	</insert>
+
+	<select id="mypage" parameterType="MemberDTO"
+		resultMap="mypageResult">
+		SELECT id, M.NAME, M.PHONE, M.EMAIL, MF.FILENUM, MF.FILENAME, MF.ORINAME
+		FROM MEMBER M
+		LEFT JOIN
+		MEMBERFILE MF
+		USING(ID)
+		WHERE ID=#{id}
+	</select>
+
+	<resultMap type="MemberDTO" id="mypageResult">
+		<id column="id" property="id"/> <!-- PK로 쓸 것을 적는 것. 속성은 컬럼, 프로퍼티 두 개 -->
+		<result column="name" property="name"/> <!-- pk를 제외한 나머지 -->
+		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
+		<association property="memberFileDTO" javaType="MemberFileDTO">
+			<id column="fileNum" property="fileNum"/>
+			<!-- 컬럼은 sql에서 선택한 컬럼명 말하는거고
+			그걸 memberfileDTO의 filenum에 넣는게 프로퍼티 -->
+			<result column="fileName" property="fileName"/>
+			<result column="oriName" property="oriName"/>
+		</association>
+	</resultMap>
+
+	<select id="login" parameterType="MemberDTO"
+		resultType="MemberDTO">
+		select id, name from member where id = #{id} and pw = #{pw}
+	</select>
+
+	<insert id="join" parameterType="MemberDTO">
+		INSERT INTO MEMBER(ID, PW, NAME, PHONE, EMAIL)
+		VALUES(#{id}, #{pw}, #{name}, #{phone}, #{email})
+	</insert>
+
+</mapper>

@@ -7,6 +7,10 @@ public class MemberDTO {
 	private String name;
 	private String phone;
 	private String email;
+	private MemberFileDTO memberFileDTO;
+	// is a has a 중에 has a
+	// member has a memberfile
+	// 멤버변수에 선언하면 됨.
 
 	public String getId() {
 		return id;
@@ -46,6 +50,14 @@ public class MemberDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public MemberFileDTO getMemberFileDTO() {
+		return memberFileDTO;
+	}
+
+	public void setMemberFileDTO(MemberFileDTO memberFileDTO) {
+		this.memberFileDTO = memberFileDTO;
 	}
 
 }

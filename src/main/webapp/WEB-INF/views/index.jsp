@@ -34,5 +34,6 @@
 		</c:if>
 
 	</div>
+	<img alt="" src="./resources/upload/member/34f4f781-bca9-468c-bfc5-2087e888d0b3_캡처.PNG">
 </body>
 </html>

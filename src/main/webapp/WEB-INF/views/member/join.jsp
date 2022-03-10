@@ -50,12 +50,14 @@
 			</fieldset>
 
 			<fieldset>
-				<button type="button" id="btn">join</button>
+				<!-- 최종완성하면 여기 주석 해제해서 사용하기. 밑에건 지워 <button type="button" id="btn">join</button> -->
+				<button type="submit" id="btn">join</button>
+				
 			</fieldset>
 
 		</form>
 	</div>
 	
-	<script type="text/javascript" src="../resources/js/join2.js"></script>
+	<!-- <script type="text/javascript" src="../resources/js/join2.js"></script> -->
 </body>
 </html>
