@@ -9,10 +9,16 @@
 <body>
 	<h1>${board} Add page</h1>
 	
-	<form action="./add" method="post">
+	<form action="./add" method="post" enctype="multipart/form-data">
 		title<input type="text" name="title">
 		writer<input type="text" name="writer">
 		contents<textarea name="contents" rows="" cols=""></textarea>
+		
+		<div>
+			<input type="file" name="files">
+			<input type="file" name="files">
+			<input type="file" name="files">
+		</div>
 		
 		<button type="submit">add</button>
 	</form>

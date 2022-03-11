@@ -2,6 +2,8 @@ package com.jh.s1.board;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.jh.s1.util.Pager;
 
 public interface BoardService {
@@ -18,7 +20,7 @@ public interface BoardService {
 	// return타입은 글 하나 받아올 수 있는 dto타입. 근데 qna, notice 둘다 포함하는 boarddto
 
 	// add
-	public int add(BoardDTO boardDTO) throws Exception;
+	public int add(BoardDTO boardDTO, MultipartFile [] files) throws Exception;
 
 	// update
 	public int update(BoardDTO boardDTO) throws Exception;

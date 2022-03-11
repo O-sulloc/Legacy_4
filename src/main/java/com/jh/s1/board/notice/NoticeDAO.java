@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jh.s1.board.BoardDAO;
 import com.jh.s1.board.BoardDTO;
+import com.jh.s1.board.BoardFileDTO;
 import com.jh.s1.util.Pager;
 
 @Repository
@@ -16,6 +17,12 @@ public class NoticeDAO implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jh.s1.board.notice.NoticeDAO.";
+	
+	@Override
+	public int addFile(BoardFileDTO boardFileDTO) throws Exception {
+		// insert하는거 결과 1아님 0이니까 return 타입 int 적어야지
+		return sqlSession.insert(NAMESPACE+"addFile", boardFileDTO);
+	}
 	
 	@Override
 	public BoardDTO detail(BoardDTO boardDTO) throws Exception {
