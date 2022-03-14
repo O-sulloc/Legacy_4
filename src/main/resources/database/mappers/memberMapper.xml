@@ -5,6 +5,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jh.s1.member.MemberDAO">
+	<select id="detailFile" parameterType="MemberFileDTO" resultType="MemberFileDTO">
+		SELECT * FROM MEMBERFILE
+		WHERE FILENUM = #{fileNum}
+	</select>
+
 	<update id="update" parameterType="MemberDTO">
 		update member set name=#{name}, phone=#{phone}, email=#{email}
 		where id=#{id}

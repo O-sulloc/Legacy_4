@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jh.s1.board.BoardDTO;
 import com.jh.s1.board.notice.NoticeDTO;
+import com.jh.s1.member.MemberFileDTO;
 import com.jh.s1.util.Pager;
 
 @Controller
@@ -28,6 +29,21 @@ public class QnaController {
 		// model에 board라는 속성명으로 qna를 담아줘
 	}
 
+	@RequestMapping(value = "photoDown", method = RequestMethod.GET)
+	public ModelAndView fileDown(QnaFileDTO qnaFileDTO) throws Exception {
+		// parameter로 fileNum 들어오니까 fileNum을 멤버변수로 하는 memverFileDTO 매개변수에 적어
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("fileDown");
+		// 이제 뷰네임에 클래스 이름 넣어
+		// util의 filedown의 bean네임(빈네임 따로 지정안했으니까 첫글자만 소문자로 바꾸면 됨.)
+
+		qnaFileDTO = qnaService.detailFile(qnaFileDTO);
+
+		mv.addObject("file", qnaFileDTO);
+
+		return mv;
+	}	
+	
 	@RequestMapping(value = "reply", method = RequestMethod.POST)
 	public ModelAndView reply(QnaDTO qnaDTO) throws Exception {
 		// 오버로딩 위해 매개변수르 다르게 선언

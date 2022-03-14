@@ -1,20 +1,10 @@
 package com.jh.s1.board;
 
-public class BoardFileDTO {
+import com.jh.s1.file.FileDTO;
 
-	private Long fileNum;
+public class BoardFileDTO extends FileDTO {
+
 	private Long num;
-	private String fileName;
-	private String oriName;
-
-	
-	public Long getFileNum() {
-		return fileNum;
-	}
-
-	public void setFileNum(Long fileNum) {
-		this.fileNum = fileNum;
-	}
 
 	public Long getNum() {
 		return num;
@@ -22,22 +12,6 @@ public class BoardFileDTO {
 
 	public void setNum(Long num) {
 		this.num = num;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getOriName() {
-		return oriName;
-	}
-
-	public void setOriName(String oriName) {
-		this.oriName = oriName;
 	}
 
 }

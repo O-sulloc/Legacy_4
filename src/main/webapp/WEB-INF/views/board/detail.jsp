@@ -20,8 +20,10 @@
 	<h3>contents: ${dto.contents}</h3>
 	<div>
 		<c:forEach items="${dto.fileDTOs}" var="f">
-			<a href="../resources/upload/${board}/${f.fileName}"> ${f.oriName}</a>
+			<!-- <a href="../resources/upload/${board}/${f.fileName}"> ${f.oriName}</a> -->
+			<a href="./photoDown?fileNum=${f.fileNum }"> ${f.oriName}</a>
 		</c:forEach>
+		
 	</div>
 	
 	<a href="./list">List</a>

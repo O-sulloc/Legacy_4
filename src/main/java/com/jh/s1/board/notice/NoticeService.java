@@ -20,6 +20,10 @@ public class NoticeService implements BoardService {
 	@Autowired
 	private FileManager fileManager;
 
+	public NoticeFileDTO detailFile(NoticeFileDTO noticeFileDTO) throws Exception{
+		return noticeDAO.detailFile(noticeFileDTO);
+	}
+	
 	@Override
 	public List<BoardDTO> list(Pager pager) throws Exception {
 		pager.makeRow();

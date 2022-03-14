@@ -5,6 +5,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jh.s1.board.notice.NoticeDAO">
+	<select id="detailFile" parameterType="NoticeFileDTO" resultType="NoticeFileDTO">
+		SELECT * FROM NOTICEFILE
+		WHERE FILENUM = #{fileNum}
+	</select>
 
 	<insert id="addFile" parameterType="BoardFileDTO">
 		insert into noticefile (fileNum, num, fileName, oriName)

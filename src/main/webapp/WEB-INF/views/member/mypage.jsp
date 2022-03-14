@@ -16,8 +16,8 @@
 	<h3>phone: ${dto.phone }</h3>
 	<h3>email: ${dto.email }</h3>
 	<img alt="" src="../resources/upload/member/${dto.memberFileDTO.fileName}">
+	<a href="./photoDown?fileNum=${dto.memberFileDTO.fileNum }">${dto.memberFileDTO.oriName }</a>
 	<h3>${dto.memberFileDTO.oriName}</h3>
-	
 	
 	<a href="./update?id=${dto.id }">update</a>
 </body>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,27 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@ModelAttribute("board")
+	public String getBoard() {
+		return "member";
+	}
+
+	// file download
+	@RequestMapping(value = "photoDown", method = RequestMethod.GET)
+	public ModelAndView fileDown(MemberFileDTO memberFileDTO) throws Exception {
+		// parameter로 fileNum 들어오니까 fileNum을 멤버변수로 하는 memverFileDTO 매개변수에 적어
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("fileDown");
+		// 이제 뷰네임에 클래스 이름 넣어
+		// util의 filedown의 bean네임(빈네임 따로 지정안했으니까 첫글자만 소문자로 바꾸면 됨.)
+
+		memberFileDTO = memberService.detailFile(memberFileDTO);
+
+		mv.addObject("file", memberFileDTO);
+
+		return mv;
+	}
 
 	// update post
 	@RequestMapping(value = "update", method = RequestMethod.POST)
@@ -96,16 +118,16 @@ public class MemberController {
 
 		String message = "Login Failed";
 		String p = "./login";
-		//로그인 실패하면 ./login 으로 가라
+		// 로그인 실패하면 ./login 으로 가라
 
 		if (memberDTO != null) {
 			session.setAttribute("member", memberDTO);
 			message = "Login success";
-			p="../";
+			p = "../";
 		}
 		model.addAttribute("message", message);
 		model.addAttribute("path", p);
-		//모델에 담아야 jsp로 보내줄 수 있음. 
+		// 모델에 담아야 jsp로 보내줄 수 있음.
 		String path = "common/result";
 		return path;
 	}
@@ -122,16 +144,18 @@ public class MemberController {
 	public String join(MemberDTO memberDTO, MultipartFile photo) throws Exception {
 		System.out.println(photo.getOriginalFilename());
 		System.out.println(photo.getSize());
-		
+
 		int result = memberService.join(memberDTO, photo);
 
 		return "redirect:../";
 	}
 
 	@RequestMapping(value = "join", method = RequestMethod.GET)
-	public void join() throws Exception {}
+	public void join() throws Exception {
+	}
 
-	@RequestMapping(value = "joinCheck", method=RequestMethod.GET)
-	public void joinCheck() throws Exception{}
+	@RequestMapping(value = "joinCheck", method = RequestMethod.GET)
+	public void joinCheck() throws Exception {
+	}
 
 }

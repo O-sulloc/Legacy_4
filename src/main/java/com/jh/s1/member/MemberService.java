@@ -14,6 +14,10 @@ public class MemberService {
 	@Autowired
 	private FileManager fileManager;
 
+	public MemberFileDTO detailFile(MemberFileDTO memberFileDTO) throws Exception {
+		return memberDAO.detailFile(memberFileDTO);
+	}
+
 	public int update(MemberDTO memberDTO) throws Exception {
 		return memberDAO.update(memberDTO);
 	}
@@ -31,16 +35,16 @@ public class MemberService {
 		// 1. 파일을 하드디스크(hdd)에 저장
 		String fileName = fileManager.save(photo, "resources/upload/member");
 		//
-		
+
 		// 2. 정보를 db에 저장
 		MemberFileDTO memberFileDTO = new MemberFileDTO();
 		memberFileDTO.setId(memberDTO.getId());
 		memberFileDTO.setFileName(fileName);
 		memberFileDTO.setOriName(photo.getOriginalFilename());
-		//db에 저장하려면 정보가 있어야 하는데
-		//그 정보는 memberfiledto에 있어야지
+		// db에 저장하려면 정보가 있어야 하는데
+		// 그 정보는 memberfiledto에 있어야지
 		result = memberDAO.addFile(memberFileDTO);
-		
+
 		return result; // memberDAO.join(memberDTO);
 	}
 }

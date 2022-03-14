@@ -14,6 +14,12 @@ public class MemberDAO {
 
 	private final String NAMESPACE = "com.jh.s1.member.MemberDAO.";
 
+	public MemberFileDTO detailFile(MemberFileDTO memberFileDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "detailFile", memberFileDTO);
+		// primary key인 fileNum으로 조회하는거니까 당연히 결과는 하나겠지
+		// pk는 중복값이 허용되지 않으니까
+	}
+
 	public int addFile(MemberFileDTO memberFileDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "addFile", memberFileDTO);
 	}
