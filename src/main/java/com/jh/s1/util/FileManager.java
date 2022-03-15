@@ -17,6 +17,20 @@ public class FileManager {
 	@Autowired
 	private ServletContext servletContext;
 
+	//hdd에서 파일 삭제하는 메서드
+	public boolean remove(String path, String fileName) throws Exception{
+		//저장된 파일명, 파일이 저장된 폴더명을 알아야함. 그래서 매개변수로 받아와야함.
+		
+		path = servletContext.getRealPath(path);
+		//서블렛으로 진짜 실제 경로 받아옴
+		
+		File file = new File(path, fileName);
+		return file.delete();
+		//delete 삭제하면 true 찍힘
+		//그래서 리턴타입도 boolean
+	}
+	
+	//하드디스크에 저장하는 메서드
 	public String save(MultipartFile multipartFile, String path) throws Exception {
 		// 첨부파일은 tomcat이 아니라 OS가 저장함.
 		// path =/resources/upload/member

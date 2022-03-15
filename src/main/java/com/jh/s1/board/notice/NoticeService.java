@@ -20,10 +20,10 @@ public class NoticeService implements BoardService {
 	@Autowired
 	private FileManager fileManager;
 
-	public NoticeFileDTO detailFile(NoticeFileDTO noticeFileDTO) throws Exception{
+	public NoticeFileDTO detailFile(NoticeFileDTO noticeFileDTO) throws Exception {
 		return noticeDAO.detailFile(noticeFileDTO);
 	}
-	
+
 	@Override
 	public List<BoardDTO> list(Pager pager) throws Exception {
 		pager.makeRow();
@@ -61,7 +61,7 @@ public class NoticeService implements BoardService {
 				// is i번째 files empty? yes -> true / no -> false
 				// same with files[i].getSize()==0
 				continue;
-				//비어있으면 더 이상 진행하지 말고 위로 올라가라.
+				// 비어있으면 더 이상 진행하지 말고 위로 올라가라.
 			}
 			String fileName = fileManager.save(files[i], "resources/upload/notice/");
 
@@ -87,8 +87,27 @@ public class NoticeService implements BoardService {
 
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return noticeDAO.delete(boardDTO);
+		// num으로 Hdd에 저장된 파일명 조회
+		List<NoticeFileDTO> ar = noticeDAO.listFile(boardDTO);
+
+		int result = noticeDAO.delete(boardDTO);
+
+		if (result > 0) {
+//			for (int i = 0; i > ar.size(); i++) {
+//				ar.get(i);}
+			// for(Collection에서 꺼낼 타입명 변수명:collection의 변수명){}
+
+			for (NoticeFileDTO dto : ar) {
+				boolean check = fileManager.remove("resources/upload/notice/", dto.getFileName());
+				// 파일명 꺼내야되는데 dto에파일 있으니까
+				
+//				if(check) {
+//					check는 필요할 때 사용
+//				}else {}
+			}
+		}
+
+		return result;
 	}
 
 }

@@ -18,6 +18,10 @@ public class NoticeDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.jh.s1.board.notice.NoticeDAO.";
 
+	public List<NoticeFileDTO> listFile(BoardDTO boardDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "listFile", boardDTO);
+	}
+
 	public NoticeFileDTO detailFile(NoticeFileDTO noticeFileDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "detailFile", noticeFileDTO);
 	}
