@@ -5,6 +5,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jh.s1.board.qna.QnaDAO">
+	<select id="listFile" parameterType="BoardDTO" resultType="QnaFileDTO">
+		SELECT * FROM QNAFILE
+		WHERE NUM=#{num}
+	</select>
+
 	<select id="detailFile" parameterType="QnaFileDTO" resultType="QnaFileDTO">
 		SELECT * FROM QNAFILE
 		WHERE FILENUM = #{fileNum}

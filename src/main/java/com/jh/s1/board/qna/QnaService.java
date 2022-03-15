@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jh.s1.board.BoardDTO;
 import com.jh.s1.board.BoardService;
+import com.jh.s1.board.notice.NoticeFileDTO;
 import com.jh.s1.member.MemberFileDTO;
 import com.jh.s1.util.FileManager;
 import com.jh.s1.util.Pager;
@@ -21,11 +22,11 @@ public class QnaService implements BoardService {
 
 	@Autowired
 	private FileManager fileManager;
-	
+
 	public QnaFileDTO detailFile(QnaFileDTO qnaFileDTO) throws Exception {
 		return qnaDAO.detailFile(qnaFileDTO);
-	}	
-	
+	}
+
 	@Override
 	public List<BoardDTO> list(Pager pager) throws Exception {
 		pager.makeRow();
@@ -44,22 +45,22 @@ public class QnaService implements BoardService {
 
 	@Override
 	public int add(BoardDTO boardDTO, MultipartFile[] files) throws Exception {
-		int result =qnaDAO.add(boardDTO);
-		
-		for(int i = 0; i < files.length; i++) {
+		int result = qnaDAO.add(boardDTO);
+
+		for (int i = 0; i < files.length; i++) {
 			if (files[i].isEmpty()) {
 				continue;
 			}
 			String fileName = fileManager.save(files[i], "resources/upload/qna/");
-			
+
 			QnaFileDTO qnaFileDTO = new QnaFileDTO();
 			qnaFileDTO.setNum(boardDTO.getNum());
 			qnaFileDTO.setFileName(fileName);
 			qnaFileDTO.setOriName(files[i].getOriginalFilename());
-			
+
 			result = qnaDAO.addFile(qnaFileDTO);
-			}
-		
+		}
+
 		return result;
 	}
 
@@ -72,7 +73,17 @@ public class QnaService implements BoardService {
 	@Override
 	public int delete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaDAO.delete(boardDTO);
+		List<QnaFileDTO> ar = qnaDAO.listFile(boardDTO);
+
+		int result = qnaDAO.delete(boardDTO);
+
+		if (result > 0) {
+			for (QnaFileDTO dto : ar) {
+				boolean check = fileManager.remove("resources/upload/qna/", dto.getFileName());
+			}
+		}
+
+		return result;
 	}
 
 	// 부모 interface에 없는 메서드여서 직접 만들어야 함

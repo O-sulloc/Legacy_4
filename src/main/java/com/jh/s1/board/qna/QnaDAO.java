@@ -20,23 +20,26 @@ public class QnaDAO implements BoardDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-
 	private final String NAMESPACE = "com.jh.s1.board.qna.QnaDAO.";
-	
+
+	public List<QnaFileDTO> listFile(BoardDTO boardDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "listFile", boardDTO);
+	}
+
 	public QnaFileDTO detailFile(QnaFileDTO qnaFileDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "detailFile", qnaFileDTO);
 	}
-	
+
 	@Override
 	public int addFile(BoardFileDTO boardFileDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.insert(NAMESPACE+"addFile", boardFileDTO);
+		return sqlSession.insert(NAMESPACE + "addFile", boardFileDTO);
 	}
 
-	public int reply(QnaDTO qnaDTO) throws Exception{
-		return sqlSession.insert(NAMESPACE+"reply", qnaDTO);
+	public int reply(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE + "reply", qnaDTO);
 	}
-	
+
 	public int stepUpdate(QnaDTO qnaDTO) throws Exception {
 		// step,depth 이런거 필요하니까 매개변수 qnadto로 (board는 안가지고있음)
 		return sqlSession.update(NAMESPACE + "stepUpdate", qnaDTO);
