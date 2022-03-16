@@ -24,7 +24,7 @@ public class WriterInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 
 		boolean check = false;
-
+		System.out.println("writer interceptor");
 		Long num = Long.parseLong(request.getParameter("num"));
 
 		BoardDTO boardDTO = new QnaDTO();

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.jh.s1.member.MemberDTO;
 
-@Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
@@ -23,7 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		boolean check = true;
 		// true면 통과. controller 진행
-
+		System.out.println("login interceptor");
 		if (memberDTO == null) {
 			check = false;
 			// memberDTO가 null이면, 즉, 로그인 안되어있으면 check에 false 넣어

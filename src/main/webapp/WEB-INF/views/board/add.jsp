@@ -11,7 +11,7 @@
 	
 	<form action="./add" method="post" enctype="multipart/form-data">
 		title<input type="text" name="title">
-		writer<input readonly="readonly" type="text" name="writer" value="${member.name }">
+		writer<input readonly="readonly" type="text" name="writer" value="${member.id }">
 		contents<textarea name="contents" rows="" cols=""></textarea>
 		
 		<div>
