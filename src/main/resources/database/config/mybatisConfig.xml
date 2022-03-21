@@ -14,7 +14,7 @@
 		<typeAlias type="com.jh.s1.board.BoardFileDTO" alias="BoardFileDTO"/>
 		<typeAlias type="com.jh.s1.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
 		<typeAlias type="com.jh.s1.board.qna.QnaFileDTO" alias="QnaFileDTO"/>
-		
+		<typeAlias type="com.jh.s1.board.notice.noticeReply.NoticeReplyDTO" alias="NoticeReplyDTO"/>
 		<typeAlias type="com.jh.s1.util.Pager" alias="Pager"/>
 		<typeAlias type="java.lang.Long" alias="Long" />
 		<typeAlias type="java.util.List" alias="List"/>
