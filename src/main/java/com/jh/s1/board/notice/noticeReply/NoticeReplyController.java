@@ -36,10 +36,28 @@ public class NoticeReplyController {
 	}
 
 	@GetMapping("list")
-	public void list(NoticeReplyDTO noticeReplyDTO) throws Exception {
+	public ModelAndView list(NoticeReplyDTO noticeReplyDTO) throws Exception {
 		System.out.println("list!");
+		System.out.println(noticeReplyDTO.getNum());
+		// getnum =부모의 글번호를 받아와서 출력
 		List<NoticeReplyDTO> ar = noticeReplyService.list(noticeReplyDTO);
-		
+
 		System.out.println(ar);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("noticeReply", ar);
+		mv.setViewName("common/noticeReply");
+
+		return mv;
+	}
+
+	@PostMapping("delete")
+	public ModelAndView delete(NoticeReplyDTO noticeReplyDTO) throws Exception {
+		int result = noticeReplyService.delete(noticeReplyDTO);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("result", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
 	}
 }
