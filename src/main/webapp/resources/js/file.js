@@ -53,4 +53,44 @@ fileAdd.addEventListener("click", function(){
             document.getElementById(delNum).remove();
             count--;
         }
-    })
+    });
+
+    //----
+    const fileDeleteBtn = document.querySelectorAll(".fileDeleteBtn");
+    const files = document.querySelector("#files");
+
+    //각각의 filenum을 콘솔에 찍어
+    files.addEventListener("click", function(event){
+        if(event.target.classList.contains("fileDeleteBtn")){
+            let check=confirm("delete?");
+
+            if(!check){
+                //false=취소
+                //취소면 밑에 더 내려가지말고 여기서 메서드 끝내
+                return;
+            }
+
+            let fileNum = event.target.getAttribute("data-fileNum")
+            
+            //ajax parameter:fileNum, method=post, 
+            //url:fileDelete, qnaController:fileDelete
+
+                let xhttp=new XMLHttpRequest;
+                xhttp.open("post", "./fileDelete")
+                xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhttp.send("fileNum="+fileNum);
+                xhttp.onreadystatechange=function(){
+                    if(this.readyState==4 && this.status==200){
+                        console.log(this.responseText)
+                        let result = this.responseText.trim();
+                        if(result=='1'){
+                            console.log("file 삭제");
+                            event.target.parentNode.remove();
+                        }else{
+                            
+                        }
+                    }
+            }
+        
+    }
+    });

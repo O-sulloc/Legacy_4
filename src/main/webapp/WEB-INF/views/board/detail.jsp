@@ -9,6 +9,11 @@
 <c:import url="../template/header_css.jsp"></c:import>
 <link href="../resources/css/table.css" rel="styleSheet" />
 <link href="../resources/css/list.css" rel="styleSheet" />
+<style type="text/css">
+	.bg > td{
+		backgroud-color: gray;
+	}
+</style>
 </head>
 <body>
 <c:import url="../template/header.jsp"></c:import>

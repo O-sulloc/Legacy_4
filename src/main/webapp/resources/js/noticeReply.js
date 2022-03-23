@@ -7,7 +7,65 @@ const contents  = document.querySelector("#contents");
 //id로 가져와도 되고 queryselect해도 되고
 const replyResult = document.querySelector("#replyResult");
 // 혹은 const del = document.getElementsByClassName("del");
-const del = document.querySelectorAll(".del");
+//const del = document.querySelectorAll(".del");
+
+//update
+replyResult.addEventListener("click", function(event){
+    //replyResult가 부모
+    if(event.target.classList.contains('update')){
+    //부모 영역 안에 update도 있고 del도 있으니까 target으로 지정해줘야함(기본적으로 클릭되는 것은 replyResult이기 때문에, 더 자세한 위치를 보기 위해서는 target으로)
+        //event.target.classList.replace('update','reply');
+    
+        //console.log(event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling);
+        let num = event.target.getAttribute('data-index');
+        // num
+        let replyNum = document.querySelector("#up"+num);
+        //replynum은 선택된 td태그를 의미?
+        let text =  replyNum.innerText;
+        //update 전에 이미 있던 컨텐츠 불러오려고
+        replyNum.innerText='';
+        //update버튼 누르면 replynum의 내용을 공백으로
+
+        let tx = document.createElement('textarea');
+        //tx.setAttribute로 속성 추가 가능
+        tx.setAttribute("id","update"+num);
+        tx.classList.add("reply");
+        tx.setAttribute("data-num", num);
+        tx.value=text;
+        ////update 전에 이미 있던 컨텐츠(text) 불러오는것.
+
+        replyNum.append(tx);
+}
+
+});
+
+replyResult.addEventListener("change", function(event){
+    if(event.target.classList.contains('reply')){
+        let contents=event.target.value;
+        let replyNum=event.target.getAttribute("data-num");
+
+        let check=window.confirm("update?");
+        //alert창에서 확인 누르면 true 들어오고 취소 누르면 false 들어옴
+
+        if(check){
+            let xhttp=new XMLHttpRequest;
+            xhttp.open("post", "../noticeReply/update")
+            xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhttp.send("replyNum="+replyNum+"&contents="+contents);
+            xhttp.onreadystatechange=function(){
+            if(this.readyState==4 && this.status==200){
+                if(this.responseText.trim()=='1'){
+                    alert('수정 성공');
+                    document.querySelector("#up"+replyNum).innerHTML=contents;
+                }else{
+                    alert('수정 실패');
+                }
+            }
+        }
+        }
+    }
+})
+
 
 //------------delete
 replyResult.addEventListener("click", function(event){

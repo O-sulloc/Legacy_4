@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,17 @@ public class QnaController {
 		// model에 board라는 속성명으로 qna를 담아줘
 	}
 
+	@PostMapping("fileDelete")
+	public ModelAndView fileDelete(QnaFileDTO qnaFileDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		System.out.println(qnaFileDTO.getFileNum());
+		int result = qnaService.fileDelete(qnaFileDTO);
+		
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result);
+		return mv;
+	}
+	
 	@RequestMapping(value = "photoDown", method = RequestMethod.GET)
 	public ModelAndView fileDown(QnaFileDTO qnaFileDTO) throws Exception {
 		// parameter로 fileNum 들어오니까 fileNum을 멤버변수로 하는 memverFileDTO 매개변수에 적어

@@ -14,6 +14,10 @@ public class NoticeReplyDAO {
 
 	private String NAMESPACE = "com.jh.s1.board.notice.noticeReply.NoticeReplyDAO.";
 
+	public int update(NoticeReplyDTO noticeReplyDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"update", noticeReplyDTO);
+	}
+	
 	public int delete(NoticeReplyDTO noticeReplyDTO) throws Exception{
 		return sqlSession.delete(NAMESPACE+"delete", noticeReplyDTO);
 	}

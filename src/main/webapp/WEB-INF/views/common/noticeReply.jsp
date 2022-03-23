@@ -3,14 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:forEach items="${noticeReply}" var = "dto">
-	<tr>
-		<td>${dto.contents }</td>
+	<tr class="bg">
+		<%-- <td id="up${i.index}">${dto.contents }</td> --%>
+		<td id="up${dto.replyNum}">${dto.contents }</td>
 		<td>${dto.writer }</td>
 		<td>
-			<c:if test="${member.id eq dto.writer }">
-				<button class="update" type="button">update</button>
-				<button class="del" type="button" data-num="${dto.replyNum }">Delete</button>
-			</c:if>
+		<c:if test="${member.id eq dto.writer }">
+			<%-- <button class="update" type="button" data-index="${i.index}">update</button> --%>
+			<button class="update" type="button" data-index="${dto.replyNum}">update</button>
+			<button class="del" type="button" data-num="${dto.replyNum }">Delete</button>
+		</c:if>
 		</td>
 	</tr>
 </c:forEach>

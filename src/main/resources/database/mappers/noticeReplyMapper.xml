@@ -5,6 +5,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.jh.s1.board.notice.noticeReply.NoticeReplyDAO">
+	<update id="update" parameterType="NoticeReplyDTO">
+		update noticereply set contents = #{contents} 
+		where replynum = #{replyNum}
+	</update>
+	
 	<delete id="delete" parameterType="NoticeReplyDTO">
 		delete noticereply where replynum = #{replyNum}
 	</delete>

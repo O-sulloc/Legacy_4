@@ -13,10 +13,24 @@
 	<form action="./update" method="post">
 		<input type="hidden" name="num" value="${dto.num }">
 		<input type="text" name="title" value="${dto.title }">
-		<input readonly="readonly" type="text" name="writer" value="${dto.writer}">
+		<input type="text" name="writer" value="${dto.writer}" disabled>
 		<textarea rows="" cols="" name="contents">${dto.contents }</textarea>
 		
+		<div id="files">
+			<c:forEach items="${dto.fileDTOs}" var="f">
+				<div>
+					${f.oriName} <button type="button" data-fileNum="${f.fileNum }" class="fileDeleteBtn">X</button>
+				</div>
+			</c:forEach>
+		</div>
+		
+		<div id="fileResult"></div>
+		<div>
+			<button type="button" id="fileAdd">FileAdd</button>
+		</div>
+		
 		<button type="submit">update</button>	
-	</form>
+	</form>	
+	<script type="text/javascript" src="../resources/js/file.js"></script>
 </body>
 </html>
